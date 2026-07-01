@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>El Cuarto Sentido — Costeador</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F7F4EF;--bg2:#EDE9E1;--surface:#FFFFFF;
+  --border:#D8D0C0;--border2:#C5BAA4;
+  --text:#2D2418;--text2:#7A6E5F;--text3:#A89880;
+  --accent:#9C8B6E;--accent-dark:#7A6A52;--accent-light:#EDE5D8;
+  --green:#3A7A52;--amber:#8A6A20;--amber-bg:#F5EDD8;
+  --red:#8A3020;--red-bg:#F5E8E5;
+  --radius:6px;--radius-lg:10px;
+}
+body{background:var(--bg);color:var(--text);font-family:'Jost',sans-serif;font-size:14px;line-height:1.6;min-height:100vh;-webkit-text-size-adjust:100%}
+.header{background:var(--bg);border-bottom:1px solid var(--border);padding:.75rem 1.25rem;display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap}
+.header-logo{font-size:12px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--text)}
+.header-logo span{display:block;font-size:9px;letter-spacing:.22em;color:var(--text3);margin-top:1px}
+.header-right{display:flex;align-items:center;gap:8px}
+.btn-pdf{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:var(--radius);border:1px solid var(--text);background:var(--text);font-family:'Jost',sans-serif;font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--bg);cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.layout{display:grid;grid-template-columns:370px 1fr;min-height:calc(100vh - 50px)}
+.panel-left{background:var(--bg);border-right:1px solid var(--border);padding:1.25rem 1.25rem 2rem;overflow-y:auto}
+.panel-right{background:var(--surface);padding:1.5rem 1.75rem}
+.fg{margin-bottom:1.1rem}
+.stitle{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:6px;display:block}
+.note{font-size:10px;color:var(--text3);margin-top:4px;line-height:1.5}
+.cliente-input{width:100%;background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);color:var(--text);font-family:'Jost',sans-serif;font-size:14px;font-weight:500;padding:8px 12px;outline:none;-webkit-appearance:none}
+.cliente-input::placeholder{color:var(--text3);font-weight:400}
+.seg-group{display:flex;gap:5px;flex-wrap:wrap}
+.seg{padding:8px 14px;border-radius:var(--radius);border:1px solid var(--border2);background:transparent;font-family:'Jost',sans-serif;font-size:12px;cursor:pointer;color:var(--text2);-webkit-tap-highlight-color:transparent;touch-action:manipulation;user-select:none;min-height:36px;display:inline-flex;align-items:center}
+.seg.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+input[type=number],input[type=text]{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:'Jost',sans-serif;font-size:16px;padding:9px 10px;outline:none;-webkit-appearance:none;min-height:42px}
+select{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:'Jost',sans-serif;font-size:16px;padding:9px 32px 9px 10px;outline:none;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239C8B6E' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;min-height:42px}
+.dif-table{width:100%;border-collapse:collapse}
+.dif-table thead th{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);padding:0 4px 7px 0;text-align:left;border-bottom:1px solid var(--border)}
+.dif-row td{padding:5px 4px 5px 0;vertical-align:middle;border-bottom:1px solid var(--border)}
+.dif-row:last-child td{border-bottom:none}
+.dif-row select,.dif-row input[type=number]{font-size:14px;padding:7px 5px}
+.precio-wrap{display:flex;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.precio-wrap span{padding:0 6px;font-size:11px;color:var(--text3);border-right:1px solid var(--border);background:var(--bg);white-space:nowrap;align-self:stretch;display:flex;align-items:center}
+.precio-wrap input{border:none!important;border-radius:0!important;background:transparent!important;padding:7px 5px!important;font-size:14px!important;width:72px!important;min-height:auto!important}
+.btn-add{display:inline-flex;align-items:center;gap:5px;padding:7px 12px;border-radius:var(--radius);border:1px dashed var(--border2);background:transparent;font-family:'Jost',sans-serif;font-size:12px;color:var(--text3);cursor:pointer;margin-top:7px;-webkit-tap-highlight-color:transparent;touch-action:manipulation;min-height:36px}
+.btn-del{background:var(--red-bg);border:1px solid rgba(138,48,32,.15);cursor:pointer;color:var(--red);font-size:16px;padding:5px 8px;border-radius:4px;min-height:36px;min-width:32px;display:inline-flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent}
+.rev-tag{font-size:11px;color:var(--text2);margin-top:5px}
+.rev-tag strong{color:var(--text);font-weight:500}
+.dilu-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
+.dc{border:1px solid var(--border);border-radius:var(--radius);padding:9px 4px;cursor:pointer;text-align:center;background:var(--surface);-webkit-tap-highlight-color:transparent;touch-action:manipulation;user-select:none;min-height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.dc.active{border-color:var(--text);background:var(--text)}
+.dc .dr{font-size:12px;font-weight:500;color:var(--text)}
+.dc.active .dr{color:var(--bg)}
+.dc .ds{font-size:9px;color:var(--text3);margin-top:1px}
+.dc.active .ds{color:rgba(247,244,239,.55)}
+.tag-dilu{display:inline-block;font-size:10px;padding:3px 9px;border-radius:20px;background:var(--amber-bg);color:var(--amber);border:1px solid rgba(138,106,32,.2);margin-top:4px}
+.divider{height:1px;background:var(--border);margin:1rem 0}
+.panel-eyebrow{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:.3rem}
+.panel-headline{font-family:'Cormorant',serif;font-size:22px;font-weight:400;color:var(--text);line-height:1.2;margin-bottom:.2rem}
+.panel-headline em{font-style:italic;color:var(--accent-dark)}
+.badge-periodo{display:inline-block;font-size:10px;padding:2px 8px;border-radius:20px;background:var(--accent-light);color:var(--accent-dark);border:1px solid var(--border2);margin-left:6px;vertical-align:middle;font-family:'Jost',sans-serif;font-weight:500}
+.panel-cliente{font-family:'Cormorant',serif;font-size:17px;font-style:italic;color:var(--accent);margin-bottom:1.1rem;min-height:1.4rem}
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1.25rem}
+.metric{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:.75rem .875rem}
+.metric-label{font-size:10px;color:var(--text3);font-weight:500;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.metric-value{font-family:'Cormorant',serif;font-size:24px;font-weight:500;color:var(--text);line-height:1}
+.metric-sub{font-size:10px;color:var(--text2);margin-top:3px}
+.metric-value.green{color:var(--green)}.metric-value.amber{color:var(--amber)}.metric-value.red{color:var(--red)}
+.breakdown{border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;background:var(--surface)}
+.brow{display:flex;justify-content:space-between;align-items:baseline;padding:7px 12px;border-bottom:1px solid var(--border)}
+.brow:last-child{border-bottom:none}
+.brow.hl{background:var(--bg)}
+.bk{font-size:12px;color:var(--text2)}.bd{font-size:10px;color:var(--text3);margin-left:4px}.bv{font-size:12px;font-weight:500;color:var(--text)}
+.bv.green{color:var(--green)}.bv.amber{color:var(--amber)}.bv.red{color:var(--red)}
+.pdf-header{display:none;margin-bottom:.875rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
+@media print{
+  body{background:#F7F4EF!important}
+  .header .btn-pdf,.panel-left{display:none!important}
+  .layout{display:block}
+  .panel-right{padding:.875rem 1.1rem;background:#fff}
+  .metrics-grid{grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:.875rem}
+  .metric{padding:.6rem .75rem}.metric-value{font-size:20px}.panel-headline{font-size:18px}
+  .pdf-header{display:block!important}.brow{padding:5px 10px}
+}
+@media(max-width:800px){
+  .layout{display:block}
+  .panel-left{border-right:none;border-bottom:1px solid var(--border);padding:1rem}
+  .panel-right{padding:1rem}
+  .metrics-grid{grid-template-columns:1fr 1fr}
+  .panel-headline{font-size:18px}
+}
+@media(max-width:480px){
+  .metrics-grid{grid-template-columns:1fr 1fr}
+  .dif-table thead th:nth-child(3){display:none}
+  .header-logo span{display:none}
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-logo">El Cuarto Sentido<span>Costeador de ventas</span></div>
+  <div class="header-right">
+    <button class="btn-pdf" id="btn-pdf">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      Exportar PDF
+    </button>
+  </div>
+</div>
+<div class="layout">
+  <div class="panel-left">
+    <div class="fg"><span class="stitle">Cliente</span><input type="text" class="cliente-input" id="cliente" placeholder="Nombre del cliente o empresa…"></div>
+    <div class="divider"></div>
+    <div class="fg">
+      <span class="stitle">Difusores y precios de renta</span>
+      <table class="dif-table"><thead><tr><th style="width:32%">Modelo</th><th style="width:17%">Cant.</th><th>$/mes/equipo</th><th style="width:36px"></th></tr></thead><tbody id="dif-rows"></tbody></table>
+      <button class="btn-add" id="btn-add">+ Agregar difusor</button>
+      <div class="rev-tag" id="rev-tag"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.1rem">
+      <div class="fg" style="margin-bottom:0"><span class="stitle">Duración</span><div class="seg-group" id="g-anios"><button class="seg active" data-v="1">1 año</button><button class="seg" data-v="2">2 años</button><button class="seg" data-v="3">3 años</button></div><p class="note">Difusor = pago único.</p></div>
+      <div class="fg" style="margin-bottom:0"><span class="stitle">Servicio anual ($)</span><input type="number" id="servicio" value="2000" min="0" step="100"><p class="note" id="serv-note">Costo para el año</p></div>
+    </div>
+    <div class="fg"><span class="stitle">Comisión de venta</span><div class="seg-group" id="g-com"><button class="seg" data-v="0">Sin comisión</button><button class="seg active" data-v="0.4">40%</button><button class="seg" data-v="0.5">50%</button><button class="seg" data-v="0.6">60%</button></div><p class="note">% de 1 mensualidad · pago único</p></div>
+    <div class="divider"></div>
+    <div class="fg"><span class="stitle">Aroma</span><select id="aroma-sel"></select><div id="tag-dil" style="display:none"><span class="tag-dilu">✦ Puede diluirse</span></div></div>
+    <div class="fg"><span class="stitle">Dilución</span><div class="dilu-grid" id="g-dilu"><div class="dc active" data-e="100" data-d="0"><div class="dr">Puro</div><div class="ds">100%</div></div><div class="dc" data-e="80" data-d="20"><div class="dr">80/20</div><div class="ds">80%</div></div><div class="dc" data-e="70" data-d="30"><div class="dr">70/30</div><div class="ds">70%</div></div><div class="dc" data-e="60" data-d="40"><div class="dr">60/40</div><div class="ds">60%</div></div><div class="dc" data-e="50" data-d="50"><div class="dr">50/50</div><div class="ds">50%</div></div></div></div>
+  </div>
+  <div class="panel-right">
+    <div class="pdf-header" id="pdf-header"><div style="font-family:'Cormorant',serif;font-size:20px;color:var(--text)" id="pdf-title">Costeo</div><div style="font-size:11px;color:var(--text2);margin-top:3px" id="pdf-sub">El Cuarto Sentido</div></div>
+    <div class="panel-eyebrow">Análisis del contrato</div>
+    <div class="panel-headline">Tu propuesta, <em>desglosada.</em> <span class="badge-periodo" id="badge">1 año · 12 meses</span></div>
+    <div class="panel-cliente" id="panel-cliente"></div>
+    <div class="metrics-grid">
+      <div class="metric"><div class="metric-label">Revenue total</div><div class="metric-value" id="m-rev">—</div><div class="metric-sub" id="m-mes">—/mes</div></div>
+      <div class="metric"><div class="metric-label">Costo total</div><div class="metric-value" id="m-cost">—</div><div class="metric-sub" id="m-dif-sub">difusor pago único</div></div>
+      <div class="metric"><div class="metric-label">Utilidad neta</div><div class="metric-value" id="m-ut">—</div></div>
+      <div class="metric"><div class="metric-label">Margen</div><div class="metric-value" id="m-mg">—</div></div>
+    </div>
+    <div style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:.6rem">Desglose completo</div>
+    <div class="breakdown" id="desglose"></div>
+  </div>
+</div>
+<script>
+const TC=20,FACTOR=1.05,DIPI_ML=0.2;
+const DIFS={j36:{n:'J36',usd:30,ml:400},a300:{n:'A300',usd:54,ml:200},a3000:{n:'A3000',usd:95,ml:800},nova:{n:'Nova',usd:73,ml:200},stella:{n:'Stella',usd:85,ml:200}};
+const DILUIBLES=['ASHA LIME','WOODLAND BREEZE','TABACCO Y VAINILLA','MANDARINE BOIS DE CEDRE OIL','JARDIN MEDITERRANEO','BLEU DE CHANEL','GOLDEN CHIC'];
+const AROMAS=[{n:'CITRUS',p:.67},{n:'BAMBO',p:.29},{n:'SANDALO',p:.76},{n:'TE BLANCO',p:.34},{n:'INVICTUS',p:.62},{n:'AGAVE',p:.45},{n:'GOLDEN CHIC',p:.98},{n:'BULGY',p:.35},{n:'TEA & CUCUMBER',p:.22},{n:'VERBENA',p:.24},{n:'LONDON TEA',p:.64},{n:'ONE MILLION',p:.59},{n:'TANGERINE',p:.84},{n:'ROYAL',p:.46},{n:'BERGAMOTA MENTA',p:.34},{n:'LAVANDA',p:.22},{n:'SANTAL OUD',p:.47},{n:'H ESENCIA',p:.54},{n:'SEA DIFFUSER',p:.47},{n:'HOT COCOA',p:.28},{n:'SANDIA',p:.33},{n:'CLOVE & TEA',p:.41},{n:'VANILLA PANCAKE',p:.5},{n:'ASHA LIME',p:.773},{n:'BOSQUE DE BAMBU Y TE ROJO',p:.554},{n:'TE DE JENGIBRE',p:.638},{n:'MANDARINE BOIS DE CEDRE OIL',p:.84},{n:'TABACCO Y VAINILLA',p:.84},{n:'CITRUS BROOM',p:.941},{n:'WOODLAND BREEZE',p:.941},{n:'BLEU DE CHANEL',p:1.075},{n:'JARDIN MEDITERRANEO',p:.609},{n:'CLAVO AMBIENTAL',p:.5}];
+const asel=document.getElementById('aroma-sel');
+AROMAS.forEach(a=>{const o=document.createElement('option');o.value=a.n;o.textContent=a.n+(DILUIBLES.includes(a.n)?' ✦':'');asel.appendChild(o);});
+asel.value='TE BLANCO';
+let S={anios:1,servicio:2000,aroma:'TE BLANCO',e:100,d:0,com:0.4,cliente:''};
+let difRows=[{dif:'j36',cant:2,precio:500}];
+document.getElementById('cliente').addEventListener('input',function(){S.cliente=this.value.trim();document.getElementById('panel-cliente').textContent=S.cliente;document.getElementById('pdf-title').textContent='Costeo — '+(S.cliente||'Sin nombre');document.title='ECS Costeador'+(S.cliente?' — '+S.cliente:'');});
+document.getElementById('servicio').addEventListener('input',function(){S.servicio=Number(this.value)||0;updateServNote();calc();});
+document.getElementById('btn-add').addEventListener('click',function(){difRows.push({dif:'a300',cant:1,precio:600});renderDifRows();});
+document.getElementById('btn-pdf').addEventListener('click',function(){document.getElementById('pdf-header').style.display='block';setTimeout(function(){window.print();setTimeout(function(){document.getElementById('pdf-header').style.display='none';},600);},120);});
+asel.addEventListener('change',function(){S.aroma=this.value;document.getElementById('tag-dil').style.display=DILUIBLES.includes(this.value)?'block':'none';calc();});
+function bindSeg(id,key,num){document.getElementById(id).querySelectorAll('.seg').forEach(function(b){b.addEventListener('click',function(){document.getElementById(id).querySelectorAll('.seg').forEach(function(x){x.classList.remove('active');});b.classList.add('active');S[key]=num?Number(b.dataset.v):b.dataset.v;if(key==='anios')updateServNote();calc();});});}
+bindSeg('g-anios','anios',true);bindSeg('g-com','com',true);
+document.getElementById('g-dilu').querySelectorAll('.dc').forEach(function(c){c.addEventListener('click',function(){document.getElementById('g-dilu').querySelectorAll('.dc').forEach(function(x){x.classList.remove('active');});c.classList.add('active');S.e=Number(c.dataset.e);S.d=Number(c.dataset.d);calc();});});
+function buildOpts(sel){return Object.entries(DIFS).map(function(e){return '<option value="'+e[0]+'"'+(e[0]===sel?' selected':'')+'>'+e[1].n+'</option>';}).join('');}
+function renderDifRows(){var tb=document.getElementById('dif-rows');tb.innerHTML='';difRows.forEach(function(row,i){var tr=document.createElement('tr');tr.className='dif-row';var delBtn=difRows.length>1?'<button class="btn-del" data-i="'+i+'">×</button>':'';tr.innerHTML='<td><select data-i="'+i+'" data-k="dif">'+buildOpts(row.dif)+'</select></td><td><input type="number" value="'+row.cant+'" min="1" max="20" data-i="'+i+'" data-k="cant" style="width:48px;text-align:center"></td><td><div class="precio-wrap"><span>$/mes</span><input type="number" value="'+row.precio+'" min="0" step="50" data-i="'+i+'" data-k="precio"></div></td><td>'+delBtn+'</td>';tb.appendChild(tr);});tb.querySelectorAll('select[data-k="dif"]').forEach(function(el){el.addEventListener('change',function(){difRows[Number(this.dataset.i)].dif=this.value;updateRevTag();calc();});});tb.querySelectorAll('input[data-k="cant"]').forEach(function(el){el.addEventListener('input',function(){difRows[Number(this.dataset.i)].cant=Math.max(1,Number(this.value)||1);updateRevTag();calc();});});tb.querySelectorAll('input[data-k="precio"]').forEach(function(el){el.addEventListener('input',function(){difRows[Number(this.dataset.i)].precio=Math.max(0,Number(this.value)||0);updateRevTag();calc();});});tb.querySelectorAll('button.btn-del').forEach(function(el){el.addEventListener('click',function(){var i=Number(this.dataset.i);if(difRows.length===1)return;difRows.splice(i,1);renderDifRows();});});updateRevTag();calc();}
+function updateRevTag(){var parts=difRows.map(function(r){return r.cant+' '+DIFS[r.dif].n+' × $'+r.precio.toLocaleString('es-MX');});var rm=difRows.reduce(function(s,r){return s+r.cant*r.precio;},0);document.getElementById('rev-tag').innerHTML=parts.join(' + ')+' <strong>= $'+rm.toLocaleString('es-MX')+'/mes</strong>';}
+function updateServNote(){var n=document.getElementById('serv-note');if(S.anios>1){n.textContent='$'+S.servicio.toLocaleString('es-MX')+'/año × '+S.anios+' años = $'+(S.servicio*S.anios).toLocaleString('es-MX')+' total';}else{n.textContent='Costo de servicio para el año del contrato';}}
+const mxn=n=>'$'+Math.round(n).toLocaleString('es-MX');
+const pct=n=>(n*100).toFixed(1)+'%';
+const clr=v=>v>=0.38?'green':v>=0.22?'amber':'red';
+function brow(k,det,v,c,hl){return '<div class="brow'+(hl?' hl':'')+'"><div><span class="bk">'+k+'</span>'+(det?'<span class="bd">'+det+'</span>':'')+'</div><span class="bv '+(c||'')+'">'+v+'</span></div>';}
+function bsep(){return '<div style="height:0.5px;background:var(--border)"></div>';}
+function calc(){var anios=S.anios,meses=anios*12;var aroma=AROMAS.find(function(a){return a.n===S.aroma;})||AROMAS[3];var rev_mes=0,costo_dif=0,ml_mes=0;var lines=[];difRows.forEach(function(r){var d=DIFS[r.dif];rev_mes+=r.cant*r.precio;var cd=d.usd*TC*r.cant;costo_dif+=cd;ml_mes+=d.ml*r.cant;lines.push({label:r.cant+' '+d.n,rev:r.cant*r.precio,costo:cd,pu:r.precio});});var rev_total=rev_mes*meses;var ml_c=ml_mes*meses;var ml_e=ml_c*(S.e/100),ml_d=ml_c*(S.d/100);var c_esencia=ml_e*aroma.p*FACTOR;var c_dipi=ml_d*DIPI_ML;var c_serv=anios>1?S.servicio*anios:S.servicio;var c_total=costo_dif+c_esencia+c_dipi+c_serv;var ut_op=rev_total-c_total,mg_op=rev_total>0?ut_op/rev_total:0;var comision=rev_mes*S.com;var ut=ut_op-comision,mg=rev_total>0?ut/rev_total:0;var total_eq=difRows.reduce(function(s,r){return s+r.cant;},0);document.getElementById('badge').textContent=anios+' año'+(anios>1?'s':'')+' · '+meses+' meses · '+total_eq+' equipo'+(total_eq>1?'s':'');document.getElementById('m-rev').textContent=mxn(rev_total);document.getElementById('m-mes').textContent=mxn(rev_mes)+'/mes';document.getElementById('m-cost').textContent=mxn(c_total);document.getElementById('m-dif-sub').textContent='difusor pago único: '+mxn(costo_dif);document.getElementById('m-ut').textContent=mxn(ut);document.getElementById('m-ut').className='metric-value '+clr(mg);document.getElementById('m-mg').textContent=pct(mg);document.getElementById('m-mg').className='metric-value '+clr(mg);updateServNote();var diluStr=S.e===100?'Sin dilución':S.e+'% esencia / '+S.d+'% dipi';var servStr=anios>1?'$'+S.servicio.toLocaleString('es-MX')+'/año × '+anios+' años':'$'+S.servicio.toLocaleString('es-MX')+'/año';var fecha=new Date().toLocaleDateString('es-MX',{day:'2-digit',month:'long',year:'numeric'});document.getElementById('pdf-sub').textContent='El Cuarto Sentido · '+fecha+(S.aroma?' · '+S.aroma:'');var html='';lines.forEach(function(l,i){html+=brow(i===0?'Revenue total':'',''+l.label+' × $'+l.pu.toLocaleString('es-MX')+'/mes × '+meses+' meses',mxn(l.rev*meses),'',false);});if(lines.length>1)html+=brow('','Total revenue',mxn(rev_total),'',false);html+=bsep();lines.forEach(function(l,i){html+=brow(i===0?'Difusores (pago único)':'',l.label,mxn(l.costo),'',false);});if(lines.length>1)html+=brow('','Total difusores',mxn(costo_dif),'',false);html+=brow('Esencia',ml_e.toFixed(0)+' ml × $'+aroma.p.toFixed(3)+' × 1.05 · '+diluStr,mxn(c_esencia),'',false);if(S.d>0)html+=brow('Diluente',ml_d.toFixed(0)+' ml × $0.20',mxn(c_dipi),'',false);html+=brow('Servicio',servStr,mxn(c_serv),'',false);html+=bsep();html+=brow('Ut. operación','',mxn(ut_op),clr(mg_op),false);html+=brow('Margen operación','',pct(mg_op),clr(mg_op),false);html+=bsep();html+=brow('Comisión',S.com>0?S.com*100+'% de '+mxn(rev_mes)+' (1 mensualidad)':'Sin comisión',S.com>0?mxn(comision):'$0','',false);html+=bsep();html+=brow('Utilidad neta total','',mxn(ut),clr(mg),true);html+=brow('Margen final','',pct(mg),clr(mg),true);document.getElementById('desglose').innerHTML=html;}
+renderDifRows();
+</script>
+</body>
+  </html>
