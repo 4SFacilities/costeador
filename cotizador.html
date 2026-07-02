@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>El Cuarto Sentido — Cotizador</title>
+<title>El Cuarto Sentido — Cotizador CR3</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -62,10 +62,13 @@ select.text-input{appearance:none;-webkit-appearance:none;background-image:url("
 .sbar-value{font-family:'Cormorant',serif;font-size:22px;font-weight:400;color:var(--text);line-height:1}
 .sbar-sub{font-size:10px;color:var(--text2);margin-top:3px}
 .cot-wrap{max-width:900px}
-.cot-brand{padding:2rem 0 1.75rem;margin-bottom:1rem;text-align:center}
-.cot-brand-lines{display:flex;align-items:center;margin-top:1rem}
+.cot-brand{padding:2rem 0 1.75rem;margin-bottom:1rem;text-align:center;border-bottom:none}
+.cot-brand-logo-text{font-family:'Cormorant',serif;font-size:32px;font-weight:300;letter-spacing:.18em;color:#1a1008;text-transform:capitalize;line-height:1}
+.cot-brand-tagline{font-size:7.5px;letter-spacing:.32em;color:#b0a090;margin-top:6px;text-transform:uppercase;font-family:'Jost',sans-serif;font-weight:400}
+.cot-brand-lines{display:flex;align-items:center;gap:0;margin-top:1.25rem}
 .cot-brand-line{flex:1;height:1px;background:var(--border)}
-.cot-title-bar{background:var(--text);color:var(--bg);text-align:center;padding:.55rem 1rem;font-size:10px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;margin-bottom:1rem}
+.cot-brand{border-bottom:none}
+.cot-title-bar{background:var(--text);color:var(--bg);text-align:center;padding:.55rem 1rem;font-size:10px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;margin-bottom:1rem;margin-top:0}
 .cot-meta{display:flex;justify-content:space-between;margin-bottom:1.1rem;font-size:11px;flex-wrap:wrap;gap:8px}
 .cot-meta-item span:first-child{display:block;font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:2px}
 .cot-meta-item span:last-child{font-weight:500}
@@ -104,6 +107,7 @@ select.text-input{appearance:none;-webkit-appearance:none;background-image:url("
 </style>
 </head>
 <body>
+
 <div class="app-header">
   <div class="brand">El Cuarto Sentido<span>Cotizador comercial</span></div>
   <div class="header-actions">
@@ -117,54 +121,311 @@ select.text-input{appearance:none;-webkit-appearance:none;background-image:url("
     </button>
   </div>
 </div>
+
 <div class="layout">
+
 <div class="panel-left">
-  <div class="section"><span class="section-label">Nombre del cliente</span><input type="text" class="text-input" id="cliente" placeholder="Ej. Grupo Posadas"></div>
-  <div class="section"><span class="section-label">Visita / mantenimiento</span><div class="seg-group" id="g-visita"><button class="seg" data-v="MENSUAL">Mensual</button><button class="seg" data-v="BIMESTRAL">Bimestral</button><button class="seg" data-v="TRIMESTRAL">Trimestral</button><button class="seg" data-v="SIN VISITA">Sin visita</button></div></div>
-  <div class="section"><span class="section-label">Modalidad de servicio</span><div class="seg-group" id="g-modalidad"><button class="seg" data-v="SCENT AS A SERVICE">Scent as a Service</button><button class="seg" data-v="SELF SERVICE">Self Service</button></div></div>
-  <div class="section"><span class="section-label">Horario de equipos</span><div class="seg-group" id="g-horario"><button class="seg" data-v="FULL SERVICE">Full Service</button><button class="seg" data-v="-8HRS">-8 hrs</button></div></div>
-  <div class="section"><span class="section-label">Duración del contrato</span><div class="seg-group" id="g-duracion"><button class="seg" data-v="1">1 año</button><button class="seg" data-v="2">2 años</button><button class="seg" data-v="3">3 años</button></div></div>
-  <div class="section"><span class="section-label">Método de pago</span><div class="seg-group" id="g-pago"><button class="seg" data-v="TRANSFERENCIA">Transferencia</button><button class="seg" data-v="PAYPAL">PayPal</button><button class="seg" data-v="TARJETA">Tarjeta</button><button class="seg" data-v="CHEQUE">Cheque</button></div></div>
+  <div class="section">
+    <span class="section-label">Nombre del cliente</span>
+    <input type="text" class="text-input" id="cliente" placeholder="Ej. Grupo Posadas">
+  </div>
+  <div class="section">
+    <span class="section-label">Visita / mantenimiento</span>
+    <div class="seg-group" id="g-visita">
+      <button class="seg" data-v="MENSUAL">Mensual</button>
+      <button class="seg" data-v="BIMESTRAL">Bimestral</button>
+      <button class="seg" data-v="TRIMESTRAL">Trimestral</button>
+      <button class="seg" data-v="SIN VISITA">Sin visita</button>
+    </div>
+  </div>
+  <div class="section">
+    <span class="section-label">Modalidad de servicio</span>
+    <div class="seg-group" id="g-modalidad">
+      <button class="seg" data-v="SCENT AS A SERVICE">Scent as a Service</button>
+      <button class="seg" data-v="SELF SERVICE">Self Service</button>
+    </div>
+  </div>
+  <div class="section">
+    <span class="section-label">Horario de equipos</span>
+    <div class="seg-group" id="g-horario">
+      <button class="seg" data-v="FULL SERVICE">Full Service</button>
+      <button class="seg" data-v="-8HRS">-8 hrs</button>
+    </div>
+  </div>
+  <div class="section">
+    <span class="section-label">Duración del contrato</span>
+    <div class="seg-group" id="g-duracion">
+      <button class="seg" data-v="1">1 año</button>
+      <button class="seg" data-v="2">2 años</button>
+      <button class="seg" data-v="3">3 años</button>
+    </div>
+  </div>
+  <div class="section">
+    <span class="section-label">Método de pago</span>
+    <div class="seg-group" id="g-pago">
+      <button class="seg" data-v="TRANSFERENCIA">Transferencia</button>
+      <button class="seg" data-v="PAYPAL">PayPal</button>
+      <button class="seg" data-v="TARJETA">Tarjeta</button>
+      <button class="seg" data-v="CHEQUE">Cheque</button>
+    </div>
+  </div>
   <div class="divider"></div>
-  <div class="section"><span class="section-label">Equipos</span><table class="equipo-table"><thead><tr><th style="width:84px">Modelo</th><th style="width:38px">Cant.</th><th>Ubicación</th><th style="width:72px">Precio obj.</th><th style="width:24px"></th></tr></thead><tbody id="eq-rows"></tbody></table><button class="btn-add-eq" id="btn-add-eq">+ Agregar equipo</button></div>
+  <div class="section">
+    <span class="section-label">Equipos</span>
+    <table class="equipo-table">
+      <thead><tr>
+        <th style="width:84px">Modelo</th>
+        <th style="width:38px">Cant.</th>
+        <th>Ubicación</th>
+        <th style="width:72px">Precio obj.</th>
+        <th style="width:24px"></th>
+      </tr></thead>
+      <tbody id="eq-rows"></tbody>
+    </table>
+    <button class="btn-add-eq" id="btn-add-eq">+ Agregar equipo</button>
+  </div>
   <div class="divider"></div>
-  <div class="section"><span class="section-label">Notas al pie</span><div style="font-size:10px;color:var(--text2);line-height:1.9;margin-bottom:8px;padding:6px 8px;background:var(--surface2);border-radius:var(--radius);border:1px solid var(--border)"><div>— Servicio 24/7</div><div>— El total incluye el impuesto (IVA)</div><div>— El costo en esta cotización es mensual</div></div><div id="notas-editables"></div><button class="btn-add-nota" id="btn-add-nota">+ Agregar nota</button></div>
+  <div class="section">
+    <span class="section-label">Notas al pie</span>
+    <div style="font-size:10px;color:var(--text2);line-height:1.9;margin-bottom:8px;padding:6px 8px;background:var(--surface2);border-radius:var(--radius);border:1px solid var(--border)">
+      <div>— Servicio 24/7</div>
+      <div>— El total incluye el impuesto (IVA)</div>
+      <div>— El costo en esta cotización es mensual</div>
+    </div>
+    <div id="notas-editables"></div>
+    <button class="btn-add-nota" id="btn-add-nota">+ Agregar nota</button>
+  </div>
 </div>
+
 <div class="panel-right">
-  <div class="summary-bar"><div class="sbar-item"><div class="sbar-label">Total mensual + IVA</div><div class="sbar-value" id="s-total">—</div><div class="sbar-sub" id="s-sub">—</div></div><div class="sbar-item"><div class="sbar-label">Descuento promedio</div><div class="sbar-value" id="s-desc">—</div><div class="sbar-sub">vs. precio lista</div></div><div class="sbar-item"><div class="sbar-label">Equipos</div><div class="sbar-value" id="s-eq">—</div><div class="sbar-sub" id="s-dur">—</div></div></div>
+  <div class="summary-bar">
+    <div class="sbar-item"><div class="sbar-label">Total mensual + IVA</div><div class="sbar-value" id="s-total">—</div><div class="sbar-sub" id="s-sub">—</div></div>
+    <div class="sbar-item"><div class="sbar-label">Descuento promedio</div><div class="sbar-value" id="s-desc">—</div><div class="sbar-sub">vs. precio lista</div></div>
+    <div class="sbar-item"><div class="sbar-label">Equipos</div><div class="sbar-value" id="s-eq">—</div><div class="sbar-sub" id="s-dur">—</div></div>
+  </div>
   <div class="cot-wrap">
-    <div class="cot-brand"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoH BwYIDAoMCwsKCwsNCxAQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkU DQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAB/ AbgDASIAAhEBAxEB/8QAHQABAAMAAwEBAQAAAAAAAAAAAAcICQEFBgQDAv/EAFkQAAECBQIDAggL BAQICwkAAAECAwAEBQYRBxIIITETQQkUMjhRcbKzFSI2N2F0dXaBkbQWNUKhIzNzsRcYJUNSYpTB JjREU1SGkpai0tNHV2NkcoOVtdH/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/EABURAQEAAAAAAAAA AAAAAAAAAAAAB/9oADAMBAAIRAxEAPwC5cMj0iBih7Wreq9Z4kpiw2r/qNPpcxc71Ob7CWlyplrt1 JSE7mznAAHPMBfDI9IhEXDTe+MfPZd3+xSP/AKMessS3q1b7E03WbyqtzKeUlTa55lhssgA5CeyQ nOc9+ekB6XI9MIprxo6u6jWLq1LUa07omKXILo7MwplDDSwXC46CrK0E9Ep7+6LeW+87MUKQfeWV uuSza1qPeSgEn84D7oQhAIZHpEQRxQa6P6dPyFpWnJM1K76qE9i24NzcshatiFFIPxlqVySnIHIk 8sA91QdLbwnKM1NXfq5ea686jc+aVMtSsqws89rbYbIUAeWVdcdBAS7CKy2tq7d+nWuI0n1TqTNZ kZ1bYpNd7BLLpS4cNF0J+KQVAoJxlKh1I6WagEIQgEIQgEIQgEIQgEIQgEIRXLUTicctLWp/TkW YmcDU7LSvjvwjsz2yWzu2dmenadsA8ckB6XI9MIprxo6u6jWLq1LUa07omKXILo7MwplDDSwXC46 CrK0E9Ep7+6LeW+87MUKQfeWVuuSza1qPeSgEn84D7oQhAIZHpEQRxQa6P6dPyFpWnJM1K76qE9i 24NzcshatiFFIPxlqVySnIHIk8sA91QdLbwnKM1NXfq5ea686jc+aVMtSsqws89rbYbIUAeWVdcdB AS7CKy2tq7d+nWuI0n1TqTNZkZ1bYpNd7BLLpS4cNF0J+KQVAoJxlKh1I6WagAAAAAAAAAAAAAA" style="width:220px;height:auto;display:block;margin:0 auto" alt="El Cuarto Sentido">
-      <div class="cot-brand-lines" style="display:flex;margin-top:1rem"><div class="cot-brand-line"></div><div style="width:2rem"></div><div class="cot-brand-line"></div></div>
+    <div class="cot-brand">
+      <img src="data:image/jpeg;base64,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" style="width:220px;height:auto;display:block;margin:0 auto" alt="El Cuarto Sentido">
+      <div class="cot-brand-lines" style="display:flex;margin-top:1rem">
+        <div class="cot-brand-line"></div>
+        <div style="width:2rem"></div>
+        <div class="cot-brand-line"></div>
+      </div>
     </div>
     <div class="cot-title-bar" id="cot-title"></div>
-    <div class="cot-meta"><div class="cot-meta-item"><span>Cliente</span><span id="m-cliente">—</span></div><div class="cot-meta-item"><span>Fecha</span><span id="m-fecha">—</span></div><div class="cot-meta-item"><span>Contrato</span><span id="m-contrato">—</span></div><div class="cot-meta-item"><span>Folio</span><span id="m-folio">—</span></div></div>
-    <table class="cot-table"><thead><tr><th style="width:44px">Cant.</th><th style="width:70px">Modelo</th><th class="l">Ubicación</th><th>Precio lista</th><th>Dto. %</th><th>Dto. $</th><th>P. Unitario</th><th>Subtotal</th><th>Total + IVA</th></tr></thead><tbody id="cot-body"></tbody></table>
-    <div class="cot-totals"><div class="cot-totals-box"><div class="t-row sub"><span class="lbl">Subtotal mensual</span><span class="amt" id="t-sub">—</span></div><div class="t-row"><span class="lbl">IVA (16%)</span><span class="amt" id="t-iva">—</span></div><div class="t-row"><span class="lbl">Total mensual + IVA</span><span class="amt" id="t-tot">—</span></div></div></div>
+    <div class="cot-meta">
+      <div class="cot-meta-item"><span>Cliente</span><span id="m-cliente">—</span></div>
+      <div class="cot-meta-item"><span>Fecha</span><span id="m-fecha">—</span></div>
+      <div class="cot-meta-item"><span>Contrato</span><span id="m-contrato">—</span></div>
+      <div class="cot-meta-item"><span>Folio</span><span id="m-folio">—</span></div>
+    </div>
+    <table class="cot-table">
+      <thead><tr>
+        <th style="width:44px">Cant.</th><th style="width:70px">Modelo</th>
+        <th class="l">Ubicación</th><th>Precio lista</th><th>Dto. %</th>
+        <th>Dto. $</th><th>P. Unitario</th><th>Subtotal</th><th>Total + IVA</th>
+      </tr></thead>
+      <tbody id="cot-body"></tbody>
+    </table>
+    <div class="cot-totals">
+      <div class="cot-totals-box">
+        <div class="t-row sub"><span class="lbl">Subtotal mensual</span><span class="amt" id="t-sub">—</span></div>
+        <div class="t-row"><span class="lbl">IVA (16%)</span><span class="amt" id="t-iva">—</span></div>
+        <div class="t-row"><span class="lbl">Total mensual + IVA</span><span class="amt" id="t-tot">—</span></div>
+      </div>
+    </div>
     <ul class="cot-footer" id="cot-footer"></ul>
   </div>
 </div>
 </div>
+
 <script>
-const LISTA={'G-AIR':3500,'XS-AIR':1500,'A3000':3500,'A300':2500,'J36':1500,'NOVA':4990,'STELLA':6990};
-const IVA=0.16;
-let state={cliente:'',visita:'TRIMESTRAL',modalidad:'SCENT AS A SERVICE',horario:'FULL SERVICE',duracion:'1',pago:'TRANSFERENCIA',equipos:[{modelo:'G-AIR',cant:1,ubicacion:'',objetivo:0}],notas:['Servicio en renta que incluye: visita trimestral, mantenimiento y aroma','En caso de cambio en las cantidades, los precios se ajustarán']};
-let _folio='ECS-'+new Date().getFullYear()+'-'+(Math.floor(Math.random()*9000)+1000);
-const mxn=n=>'$'+Math.round(n).toLocaleString('es-MX');
-const pct=n=>(n*100).toFixed(0)+'%';
-function buildTitle(){const p=[state.pago];if(state.visita!=='SIN VISITA')p.push('VISITA '+state.visita);p.push(state.modalidad);p.push(state.horario);return p.join(' — ');}
-function bindSeg(id,key){document.getElementById(id).querySelectorAll('.seg').forEach(b=>{b.addEventListener('click',()=>{document.getElementById(id).querySelectorAll('.seg').forEach(x=>x.classList.remove('active'));b.classList.add('active');state[key]=b.dataset.v;render();});});}
-bindSeg('g-visita','visita');bindSeg('g-modalidad','modalidad');bindSeg('g-horario','horario');bindSeg('g-duracion','duracion');bindSeg('g-pago','pago');
-document.getElementById('cliente').addEventListener('input',e=>{state.cliente=e.target.value;render();});
-function syncSegs(){[['g-visita','visita'],['g-modalidad','modalidad'],['g-horario','horario'],['g-duracion','duracion'],['g-pago','pago']].forEach(([id,key])=>{document.getElementById(id).querySelectorAll('.seg').forEach(b=>{b.classList.toggle('active',b.dataset.v===state[key]);});});document.getElementById('cliente').value=state.cliente;}
-function buildModelOpts(sel){return Object.keys(LISTA).map(k=>'<option value="'+k+'"'+(k===sel?' selected':'')+'>'+k+'</option>').join('');}
-function renderEquipos(){const tb=document.getElementById('eq-rows');tb.innerHTML='';state.equipos.forEach((eq,i)=>{const tr=document.createElement('tr');tr.className='eq-row';const del=state.equipos.length>1?'<button class="eq-btn" data-i="'+i+'">×</button>':'';tr.innerHTML='<td><select data-i="'+i+'" data-k="modelo">'+buildModelOpts(eq.modelo)+'</select></td><td><input type="number" value="'+eq.cant+'" min="1" max="99" data-i="'+i+'" data-k="cant" style="width:40px;text-align:center"></td><td><input type="text" value="'+eq.ubicacion.replace(/"/g,'&quot;')+'" data-i="'+i+'" data-k="ubicacion" placeholder="Ubicación" style="width:100%"></td><td><input type="number" value="'+eq.objetivo+'" min="0" step="50" data-i="'+i+'" data-k="objetivo" style="width:68px;text-align:right"></td><td>'+del+'</td>';tb.appendChild(tr);});tb.querySelectorAll('select[data-k="modelo"]').forEach(el=>{el.addEventListener('change',e=>{state.equipos[+e.target.dataset.i].modelo=e.target.value;renderEquipos();render();});});tb.querySelectorAll('input[data-k="cant"]').forEach(el=>{el.addEventListener('input',e=>{state.equipos[+e.target.dataset.i].cant=Math.max(1,+e.target.value||1);render();});});tb.querySelectorAll('input[data-k="ubicacion"]').forEach(el=>{el.addEventListener('input',e=>{state.equipos[+e.target.dataset.i].ubicacion=e.target.value;render();});});tb.querySelectorAll('input[data-k="objetivo"]').forEach(el=>{el.addEventListener('input',e=>{state.equipos[+e.target.dataset.i].objetivo=+e.target.value||0;render();});});tb.querySelectorAll('.eq-btn').forEach(el=>{el.addEventListener('click',e=>{const i=+e.currentTarget.dataset.i;if(state.equipos.length===1)return;state.equipos.splice(i,1);renderEquipos();render();});});}
-document.getElementById('btn-add-eq').addEventListener('click',()=>{state.equipos.push({modelo:'G-AIR',cant:1,ubicacion:'',objetivo:1900});renderEquipos();render();});
-function renderNotas(){const c=document.getElementById('notas-editables');c.innerHTML='';state.notas.forEach((nota,i)=>{const row=document.createElement('div');row.className='nota-row';row.innerHTML='<span class="nota-bullet">—</span><input type="text" value="'+nota.replace(/"/g,'&quot;')+'" data-i="'+i+'" placeholder="Texto de la nota..."><button class="nota-del" data-i="'+i+'">×</button>';c.appendChild(row);});c.querySelectorAll('input').forEach(el=>{el.addEventListener('input',e=>{state.notas[+e.target.dataset.i]=e.target.value;render();});});c.querySelectorAll('.nota-del').forEach(el=>{el.addEventListener('click',e=>{state.notas.splice(+e.currentTarget.dataset.i,1);renderNotas();render();});});}
-document.getElementById('btn-add-nota').addEventListener('click',()=>{state.notas.push('');renderNotas();render();});
-function render(){const fecha=new Date().toLocaleDateString('es-MX',{day:'2-digit',month:'long',year:'numeric'});document.getElementById('cot-title').textContent=buildTitle();document.getElementById('m-cliente').textContent=state.cliente||'—';document.getElementById('m-fecha').textContent=fecha;document.getElementById('m-contrato').textContent=state.duracion+(state.duracion==='1'?' año':' años');document.getElementById('m-folio').textContent=_folio;const tb=document.getElementById('cot-body');tb.innerHTML='';let sub=0,pd=0,pl=0,te=0;state.equipos.forEach(eq=>{const lista=LISTA[eq.modelo]||0,cant=eq.cant,obj=eq.objetivo,desc=Math.max(0,lista-obj),dp=lista>0?desc/lista:0,s=obj*cant,c=s*(1+IVA);sub+=s;pd+=dp*(lista*cant);pl+=lista*cant;te+=cant;const tr=document.createElement('tr');tr.innerHTML='<td>'+cant+'</td><td style="font-weight:500">'+eq.modelo+'</td><td class="l">'+(eq.ubicacion||'—')+'</td><td>'+mxn(lista)+'</td><td>'+pct(dp)+'</td><td class="red">'+(desc>0?'-'+mxn(desc):'—')+'</td><td class="bold">'+mxn(obj)+'</td><td>'+mxn(s)+'</td><td class="bold">'+mxn(c)+'</td>';tb.appendChild(tr);});const iva=sub*IVA,tot=sub+iva,dp=pl>0?pd/pl:0;document.getElementById('t-sub').textContent=mxn(sub);document.getElementById('t-iva').textContent=mxn(iva);document.getElementById('t-tot').textContent=mxn(tot);document.getElementById('s-total').textContent=mxn(tot);document.getElementById('s-sub').textContent=mxn(sub)+' sin IVA';document.getElementById('s-desc').textContent=pct(dp);document.getElementById('s-eq').textContent=te+' equipo'+(te!==1?'s':'');document.getElementById('s-dur').textContent=state.duracion+(state.duracion==='1'?' año':' años')+' de contrato';const fijas=['Servicio 24/7','El total incluye el impuesto (IVA)','El costo en esta cotización es mensual'];document.getElementById('cot-footer').innerHTML=[...fijas,...state.notas.filter(n=>n.trim())].map(n=>'<li>'+n+'</li>').join('');}
-document.getElementById('btn-pdf').addEventListener('click',()=>window.print());
-document.getElementById('btn-nueva').addEventListener('click',()=>{if(!confirm('¿Limpiar la cotización y empezar desde cero?'))return;_folio='ECS-'+new Date().getFullYear()+'-'+(Math.floor(Math.random()*9000)+1000);state={cliente:'',visita:'TRIMESTRAL',modalidad:'SCENT AS A SERVICE',horario:'FULL SERVICE',duracion:'1',pago:'TRANSFERENCIA',equipos:[{modelo:'G-AIR',cant:1,ubicacion:'',objetivo:1900}],notas:['Servicio en renta que incluye: visita trimestral, mantenimiento y aroma','En caso de cambio en las cantidades, los precios se ajustarán']};syncSegs();renderEquipos();renderNotas();render();});
-syncSegs();renderEquipos();renderNotas();render();
+const LISTA = {'G-AIR':3500,'XS-AIR':1500,'A3000':3500,'A300':2500,'J36':1500,'NOVA':4990,'STELLA':6990};
+const IVA = 0.16;
+let state = {
+  cliente: '',
+  visita: 'TRIMESTRAL',
+  modalidad: 'SCENT AS A SERVICE',
+  horario: 'FULL SERVICE',
+  duracion: '1',
+  pago: 'TRANSFERENCIA',
+  equipos: [{modelo:'G-AIR', cant:1, ubicacion:'', objetivo:0}],
+  notas: [
+    'Servicio en renta que incluye: visita trimestral, mantenimiento y aroma',
+    'En caso de cambio en las cantidades, los precios se ajustarán'
+  ]
+};
+let _folio = 'ECS-' + new Date().getFullYear() + '-' + (Math.floor(Math.random()*9000)+1000);
+const mxn = n => '$' + Math.round(n).toLocaleString('es-MX');
+const pct = n => (n*100).toFixed(0) + '%';
+function buildTitle() {
+  const partes = [state.pago];
+  if (state.visita !== 'SIN VISITA') partes.push('VISITA ' + state.visita);
+  partes.push(state.modalidad);
+  partes.push(state.horario);
+  return partes.join(' — ');
+}
+function bindSeg(id, key) {
+  document.getElementById(id).querySelectorAll('.seg').forEach(b => {
+    b.addEventListener('click', () => {
+      document.getElementById(id).querySelectorAll('.seg').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      state[key] = b.dataset.v;
+      render();
+    });
+  });
+}
+bindSeg('g-visita','visita');
+bindSeg('g-modalidad','modalidad');
+bindSeg('g-horario','horario');
+bindSeg('g-duracion','duracion');
+bindSeg('g-pago','pago');
+document.getElementById('cliente').addEventListener('input', e => { state.cliente = e.target.value; render(); });
+function syncSegs() {
+  [['g-visita','visita'],['g-modalidad','modalidad'],['g-horario','horario'],['g-duracion','duracion'],['g-pago','pago']].forEach(([id,key]) => {
+    document.getElementById(id).querySelectorAll('.seg').forEach(b => {
+      b.classList.toggle('active', b.dataset.v === state[key]);
+    });
+  });
+  document.getElementById('cliente').value = state.cliente;
+}
+function buildModelOpts(sel) {
+  return Object.keys(LISTA).map(k =>
+    '<option value="' + k + '"' + (k===sel?' selected':'') + '>' + k + '</option>'
+  ).join('');
+}
+function renderEquipos() {
+  const tbody = document.getElementById('eq-rows');
+  tbody.innerHTML = '';
+  state.equipos.forEach((eq, i) => {
+    const tr = document.createElement('tr');
+    tr.className = 'eq-row';
+    const del = state.equipos.length > 1 ? '<button class="eq-btn" data-i="' + i + '">×</button>' : '';
+    tr.innerHTML =
+      '<td><select data-i="' + i + '" data-k="modelo">' + buildModelOpts(eq.modelo) + '</select></td>' +
+      '<td><input type="number" value="' + eq.cant + '" min="1" max="99" data-i="' + i + '" data-k="cant" style="width:40px;text-align:center"></td>' +
+      '<td><input type="text" value="' + eq.ubicacion.replace(/"/g,'&quot;') + '" data-i="' + i + '" data-k="ubicacion" placeholder="Ubicación" style="width:100%"></td>' +
+      '<td><input type="number" value="' + eq.objetivo + '" min="0" step="50" data-i="' + i + '" data-k="objetivo" style="width:68px;text-align:right"></td>' +
+      '<td>' + del + '</td>';
+    tbody.appendChild(tr);
+  });
+  tbody.querySelectorAll('select[data-k="modelo"]').forEach(el => {
+    el.addEventListener('change', e => { state.equipos[+e.target.dataset.i].modelo = e.target.value; renderEquipos(); render(); });
+  });
+  tbody.querySelectorAll('input[data-k="cant"]').forEach(el => {
+    el.addEventListener('input', e => { state.equipos[+e.target.dataset.i].cant = Math.max(1,+e.target.value||1); render(); });
+  });
+  tbody.querySelectorAll('input[data-k="ubicacion"]').forEach(el => {
+    el.addEventListener('input', e => { state.equipos[+e.target.dataset.i].ubicacion = e.target.value; render(); });
+  });
+  tbody.querySelectorAll('input[data-k="objetivo"]').forEach(el => {
+    el.addEventListener('input', e => { state.equipos[+e.target.dataset.i].objetivo = +e.target.value||0; render(); });
+  });
+  tbody.querySelectorAll('.eq-btn').forEach(el => {
+    el.addEventListener('click', e => {
+      const i = +e.currentTarget.dataset.i;
+      if(state.equipos.length===1) return;
+      state.equipos.splice(i,1);
+      renderEquipos(); render();
+    });
+  });
+}
+document.getElementById('btn-add-eq').addEventListener('click', () => {
+  state.equipos.push({modelo:'G-AIR', cant:1, ubicacion:'', objetivo:1900});
+  renderEquipos(); render();
+});
+function renderNotas() {
+  const container = document.getElementById('notas-editables');
+  container.innerHTML = '';
+  state.notas.forEach((nota, i) => {
+    const row = document.createElement('div');
+    row.className = 'nota-row';
+    row.innerHTML =
+      '<span class="nota-bullet">—</span>' +
+      '<input type="text" value="' + nota.replace(/"/g,'&quot;') + '" data-i="' + i + '" placeholder="Texto de la nota...">' +
+      '<button class="nota-del" data-i="' + i + '">×</button>';
+    container.appendChild(row);
+  });
+  container.querySelectorAll('input').forEach(el => {
+    el.addEventListener('input', e => { state.notas[+e.target.dataset.i] = e.target.value; render(); });
+  });
+  container.querySelectorAll('.nota-del').forEach(el => {
+    el.addEventListener('click', e => {
+      state.notas.splice(+e.currentTarget.dataset.i, 1);
+      renderNotas(); render();
+    });
+  });
+}
+document.getElementById('btn-add-nota').addEventListener('click', () => {
+  state.notas.push('');
+  renderNotas(); render();
+});
+function render() {
+  const fecha = new Date().toLocaleDateString('es-MX',{day:'2-digit',month:'long',year:'numeric'});
+  document.getElementById('cot-title').textContent = buildTitle();
+  document.getElementById('m-cliente').textContent = state.cliente || '—';
+  document.getElementById('m-fecha').textContent = fecha;
+  document.getElementById('m-contrato').textContent = state.duracion + (state.duracion==='1'?' año':' años');
+  document.getElementById('m-folio').textContent = _folio;
+  const tbody = document.getElementById('cot-body');
+  tbody.innerHTML = '';
+  let subtotal = 0, pesoDesc = 0, pesoLista = 0, totalEq = 0;
+  state.equipos.forEach(eq => {
+    const lista = LISTA[eq.modelo] || 0;
+    const cant = eq.cant;
+    const obj = eq.objetivo;
+    const desc = Math.max(0, lista - obj);
+    const descPct = lista > 0 ? desc / lista : 0;
+    const sub = obj * cant;
+    const conIva = sub * (1 + IVA);
+    subtotal += sub;
+    pesoDesc += descPct * (lista * cant);
+    pesoLista += lista * cant;
+    totalEq += cant;
+    const tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td>' + cant + '</td>' +
+      '<td style="font-weight:500">' + eq.modelo + '</td>' +
+      '<td class="l">' + (eq.ubicacion || '—') + '</td>' +
+      '<td>' + mxn(lista) + '</td>' +
+      '<td>' + pct(descPct) + '</td>' +
+      '<td class="red">' + (desc>0?'-'+mxn(desc):'—') + '</td>' +
+      '<td class="bold">' + mxn(obj) + '</td>' +
+      '<td>' + mxn(sub) + '</td>' +
+      '<td class="bold">' + mxn(conIva) + '</td>';
+    tbody.appendChild(tr);
+  });
+  const iva = subtotal * IVA;
+  const total = subtotal + iva;
+  const descProm = pesoLista > 0 ? pesoDesc / pesoLista : 0;
+  document.getElementById('t-sub').textContent = mxn(subtotal);
+  document.getElementById('t-iva').textContent = mxn(iva);
+  document.getElementById('t-tot').textContent = mxn(total);
+  document.getElementById('s-total').textContent = mxn(total);
+  document.getElementById('s-sub').textContent = mxn(subtotal) + ' sin IVA';
+  document.getElementById('s-desc').textContent = pct(descProm);
+  document.getElementById('s-eq').textContent = totalEq + ' equipo' + (totalEq!==1?'s':'');
+  document.getElementById('s-dur').textContent = state.duracion + (state.duracion==='1'?' año':' años') + ' de contrato';
+  const fijas = ['Servicio 24/7','El total incluye el impuesto (IVA)','El costo en esta cotización es mensual'];
+  document.getElementById('cot-footer').innerHTML =
+    [...fijas, ...state.notas.filter(n=>n.trim())].map(n=>'<li>'+n+'</li>').join('');
+}
+document.getElementById('btn-pdf').addEventListener('click', () => window.print());
+document.getElementById('btn-nueva').addEventListener('click', () => {
+  if(!confirm('¿Limpiar la cotización y empezar desde cero?')) return;
+  _folio = 'ECS-' + new Date().getFullYear() + '-' + (Math.floor(Math.random()*9000)+1000);
+  state = {
+    cliente:'', visita:'TRIMESTRAL', modalidad:'SCENT AS A SERVICE', horario:'FULL SERVICE',
+    duracion:'1', pago:'TRANSFERENCIA',
+    equipos:[{modelo:'G-AIR',cant:1,ubicacion:'',objetivo:1900}],
+    notas:[
+      'Servicio en renta que incluye: servicio trimestral, mantenimiento y aroma',
+      'En caso de cambio en las cantidades, los precios se ajustarán'
+    ]
+  };
+  syncSegs(); renderEquipos(); renderNotas(); render();
+});
+syncSegs(); renderEquipos(); renderNotas(); render();
 </script>
 </body>
 </html>
