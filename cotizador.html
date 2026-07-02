@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Cuarto Sentido — Cotizador</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F7F4EF;--surface:#FFFFFF;--surface2:#F0EDE7;
+  --border:#DDD6C8;--border2:#C8BFA8;
+  --text:#2D2418;--text2:#7A6E5F;--text3:#A89880;
+  --accent:#9C8B6E;--accent-dark:#7A6A52;--accent-light:#EDE5D8;
+  --green:#2E6B45;--red:#8A3020;--red-bg:#F5E8E5;
+  --radius:4px;--radius-lg:8px;
+}
+body{background:var(--bg);color:var(--text);font-family:'Jost',sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
+.app-header{background:var(--bg);border-bottom:1px solid var(--border);padding:.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.brand{font-size:11px;font-weight:400;letter-spacing:.2em;text-transform:uppercase;color:var(--text)}
+.brand span{display:block;font-size:8px;letter-spacing:.3em;color:var(--text3);margin-top:2px}
+.header-actions{display:flex;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 16px;border-radius:var(--radius);font-family:'Jost',sans-serif;font-size:11px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;transition:all .15s;border:1px solid transparent;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.btn-primary{background:var(--text);color:var(--bg);border-color:var(--text)}
+.btn-secondary{background:transparent;color:var(--text2);border-color:var(--border2)}
+.btn svg{width:13px;height:13px;flex-shrink:0}
+.layout{display:grid;grid-template-columns:340px 1fr;min-height:calc(100vh - 50px)}
+.panel-left{background:var(--bg);border-right:1px solid var(--border);padding:1.25rem;overflow-y:auto}
+.panel-right{background:var(--surface);padding:1.75rem 2rem;overflow-y:auto}
+.section{margin-bottom:1.2rem}
+.section-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:6px;display:block}
+.note{font-size:10px;color:var(--text3);margin-top:3px;line-height:1.4}
+.text-input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:'Jost',sans-serif;font-size:13px;padding:8px 10px;outline:none;transition:border-color .15s;-webkit-appearance:none}
+.text-input:focus{border-color:var(--accent)}
+.text-input::placeholder{color:var(--text3)}
+select.text-input{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%239C8B6E' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 9px center;padding-right:28px;cursor:pointer;min-height:36px}
+.seg-group{display:flex;gap:4px;flex-wrap:wrap}
+.seg{padding:6px 12px;border-radius:var(--radius);border:1px solid var(--border2);background:transparent;font-family:'Jost',sans-serif;font-size:11px;cursor:pointer;color:var(--text2);transition:all .12s;-webkit-tap-highlight-color:transparent;touch-action:manipulation;user-select:none}
+.seg.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+.divider{height:1px;background:var(--border);margin:1.1rem 0}
+.equipo-table{width:100%;border-collapse:collapse}
+.equipo-table thead th{font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);padding:0 4px 6px 0;text-align:left;border-bottom:1px solid var(--border)}
+.eq-row td{padding:4px 4px 4px 0;vertical-align:middle;border-bottom:1px solid var(--border)}
+.eq-row:last-child td{border-bottom:none}
+.eq-row select{font-size:12px;padding:4px 22px 4px 5px;min-height:auto;width:100%;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:'Jost',sans-serif;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%239C8B6E' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 5px center;cursor:pointer}
+.eq-row input[type=number],.eq-row input[type=text]{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:'Jost',sans-serif;font-size:12px;padding:4px 5px;outline:none;-webkit-appearance:none}
+.eq-row input[type=number]:focus,.eq-row input[type=text]:focus,.eq-row select:focus{border-color:var(--accent);outline:none}
+.eq-btn{background:var(--red-bg);border:1px solid rgba(138,48,32,.15);cursor:pointer;color:var(--red);font-size:14px;padding:3px 6px;border-radius:3px;transition:all .12s;-webkit-tap-highlight-color:transparent;display:inline-flex;align-items:center;justify-content:center;min-width:24px;min-height:28px}
+.btn-add-eq{display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:var(--radius);border:1px dashed var(--border2);background:transparent;font-family:'Jost',sans-serif;font-size:11px;color:var(--text3);cursor:pointer;margin-top:7px;transition:all .12s}
+.btn-add-eq:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light)}
+.nota-row{display:flex;align-items:center;gap:6px;margin-bottom:5px}
+.nota-bullet{font-size:11px;color:var(--text3);flex-shrink:0}
+.nota-row input{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:'Jost',sans-serif;font-size:11px;padding:5px 8px;outline:none}
+.nota-row input:focus{border-color:var(--accent)}
+.nota-del{background:transparent;border:none;cursor:pointer;color:var(--text3);font-size:13px;padding:2px 4px;border-radius:3px;flex-shrink:0}
+.nota-del:hover{color:var(--red)}
+.btn-add-nota{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:var(--radius);border:1px dashed var(--border2);background:transparent;font-family:'Jost',sans-serif;font-size:11px;color:var(--text3);cursor:pointer;margin-top:4px;transition:all .12s}
+.btn-add-nota:hover{border-color:var(--accent);color:var(--accent)}
+.summary-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.25rem}
+.sbar-item{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:.75rem 1rem}
+.sbar-label{font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:4px}
+.sbar-value{font-family:'Cormorant',serif;font-size:22px;font-weight:400;color:var(--text);line-height:1}
+.sbar-sub{font-size:10px;color:var(--text2);margin-top:3px}
+.cot-wrap{max-width:900px}
+.cot-brand{padding:2rem 0 1.75rem;margin-bottom:1rem;text-align:center}
+.cot-brand-lines{display:flex;align-items:center;margin-top:1rem}
+.cot-brand-line{flex:1;height:1px;background:var(--border)}
+.cot-title-bar{background:var(--text);color:var(--bg);text-align:center;padding:.55rem 1rem;font-size:10px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;margin-bottom:1rem}
+.cot-meta{display:flex;justify-content:space-between;margin-bottom:1.1rem;font-size:11px;flex-wrap:wrap;gap:8px}
+.cot-meta-item span:first-child{display:block;font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:2px}
+.cot-meta-item span:last-child{font-weight:500}
+.cot-table{width:100%;border-collapse:collapse;font-size:11.5px;margin-bottom:1rem}
+.cot-table thead tr{border-bottom:1.5px solid var(--text)}
+.cot-table thead th{padding:.45rem .5rem;font-size:8.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text2);text-align:center}
+.cot-table thead th.l{text-align:left}
+.cot-table tbody tr{border-bottom:1px solid var(--border)}
+.cot-table tbody tr:last-child{border-bottom:1.5px solid var(--text)}
+.cot-table tbody td{padding:.4rem .5rem;text-align:center;color:var(--text)}
+.cot-table tbody td.l{text-align:left}
+.cot-table tbody td.red{color:var(--red)}
+.cot-table tbody td.bold{font-weight:600}
+.cot-totals{display:flex;justify-content:flex-end;margin-bottom:1.25rem}
+.cot-totals-box{width:270px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.t-row{display:flex;justify-content:space-between;padding:.4rem .75rem;border-bottom:1px solid var(--border);font-size:11px}
+.t-row:last-child{border-bottom:none;background:var(--text);color:var(--bg);padding:.5rem .75rem}
+.t-row .lbl{font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;align-self:center}
+.t-row .amt{font-family:'Cormorant',serif;font-size:17px;font-weight:400}
+.t-row.sub{background:var(--surface2)}
+.cot-footer{border-top:1px solid var(--border);padding-top:.75rem;font-size:10px;color:var(--text2);line-height:1.8}
+.cot-footer li{list-style:none;padding-left:.75rem;position:relative}
+.cot-footer li::before{content:"—";position:absolute;left:0;color:var(--text3)}
+@media print{
+  .app-header,.panel-left,.summary-bar{display:none!important}
+  .layout{display:block}
+  .panel-right{padding:.4in .6in;background:#fff}
+  .cot-wrap{max-width:100%}
+  body{background:#fff}
+}
+@media(max-width:900px){
+  .layout{display:block}
+  .panel-left{border-right:none;border-bottom:1px solid var(--border)}
+  .summary-bar{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div class="app-header">
+  <div class="brand">El Cuarto Sentido<span>Cotizador comercial</span></div>
+  <div class="header-actions">
+    <button class="btn btn-secondary" id="btn-nueva">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.6"/></svg>
+      Nueva cotización
+    </button>
+    <button class="btn btn-primary" id="btn-pdf">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Exportar PDF
+    </button>
+  </div>
+</div>
+<div class="layout">
+<div class="panel-left">
+  <div class="section"><span class="section-label">Nombre del cliente</span><input type="text" class="text-input" id="cliente" placeholder="Ej. Grupo Posadas"></div>
+  <div class="section"><span class="section-label">Visita / mantenimiento</span><div class="seg-group" id="g-visita"><button class="seg" data-v="MENSUAL">Mensual</button><button class="seg" data-v="BIMESTRAL">Bimestral</button><button class="seg" data-v="TRIMESTRAL">Trimestral</button><button class="seg" data-v="SIN VISITA">Sin visita</button></div></div>
+  <div class="section"><span class="section-label">Modalidad de servicio</span><div class="seg-group" id="g-modalidad"><button class="seg" data-v="SCENT AS A SERVICE">Scent as a Service</button><button class="seg" data-v="SELF SERVICE">Self Service</button></div></div>
+  <div class="section"><span class="section-label">Horario de equipos</span><div class="seg-group" id="g-horario"><button class="seg" data-v="FULL SERVICE">Full Service</button><button class="seg" data-v="-8HRS">-8 hrs</button></div></div>
+  <div class="section"><span class="section-label">Duración del contrato</span><div class="seg-group" id="g-duracion"><button class="seg" data-v="1">1 año</button><button class="seg" data-v="2">2 años</button><button class="seg" data-v="3">3 años</button></div></div>
+  <div class="section"><span class="section-label">Método de pago</span><div class="seg-group" id="g-pago"><button class="seg" data-v="TRANSFERENCIA">Transferencia</button><button class="seg" data-v="PAYPAL">PayPal</button><button class="seg" data-v="TARJETA">Tarjeta</button><button class="seg" data-v="CHEQUE">Cheque</button></div></div>
+  <div class="divider"></div>
+  <div class="section"><span class="section-label">Equipos</span><table class="equipo-table"><thead><tr><th style="width:84px">Modelo</th><th style="width:38px">Cant.</th><th>Ubicación</th><th style="width:72px">Precio obj.</th><th style="width:24px"></th></tr></thead><tbody id="eq-rows"></tbody></table><button class="btn-add-eq" id="btn-add-eq">+ Agregar equipo</button></div>
+  <div class="divider"></div>
+  <div class="section"><span class="section-label">Notas al pie</span><div style="font-size:10px;color:var(--text2);line-height:1.9;margin-bottom:8px;padding:6px 8px;background:var(--surface2);border-radius:var(--radius);border:1px solid var(--border)"><div>— Servicio 24/7</div><div>— El total incluye el impuesto (IVA)</div><div>— El costo en esta cotización es mensual</div></div><div id="notas-editables"></div><button class="btn-add-nota" id="btn-add-nota">+ Agregar nota</button></div>
+</div>
+<div class="panel-right">
+  <div class="summary-bar"><div class="sbar-item"><div class="sbar-label">Total mensual + IVA</div><div class="sbar-value" id="s-total">—</div><div class="sbar-sub" id="s-sub">—</div></div><div class="sbar-item"><div class="sbar-label">Descuento promedio</div><div class="sbar-value" id="s-desc">—</div><div class="sbar-sub">vs. precio lista</div></div><div class="sbar-item"><div class="sbar-label">Equipos</div><div class="sbar-value" id="s-eq">—</div><div class="sbar-sub" id="s-dur">—</div></div></div>
+  <div class="cot-wrap">
+    <div class="cot-brand"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoH BwYIDAoMCwsKCwsNCxAQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkU DQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAB/ AbgDASIAAhEBAxEB/8QAHQABAAMAAwEBAQAAAAAAAAAAAAcICQEFBgQDAv/EAFkQAAECBQIDAggL BAQICwkAAAECAwAEBQYRBxIIITETQQkUMjhRcbKzFSI2N2F0dXaBkbQWNUKhIzNzsRcYJUNSYpTB JjREU1SGkpai0tNHV2NkcoOVtdH/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/EABURAQEAAAAAAAAA AAAAAAAAAAAAB/9oADAMBAAIRAxEAPwC5cMj0iBih7Wreq9Z4kpiw2r/qNPpcxc71Ob7CWlyplrt1 JSE7mznAAHPMBfDI9IhEXDTe+MfPZd3+xSP/AKMessS3q1b7E03WbyqtzKeUlTa55lhssgA5CeyQ nOc9+ekB6XI9MIprxo6u6jWLq1LUa07omKXILo7MwplDDSwXC46CrK0E9Ep7+6LeW+87MUKQfeWV uuSza1qPeSgEn84D7oQhAIZHpEQRxQa6P6dPyFpWnJM1K76qE9i24NzcshatiFFIPxlqVySnIHIk 8sA91QdLbwnKM1NXfq5ea686jc+aVMtSsqws89rbYbIUAeWVdcdBAS7CKy2tq7d+nWuI0n1TqTNZ kZ1bYpNd7BLLpS4cNF0J+KQVAoJxlKh1I6WagEIQgEIQgEIQgEIQgEIQgEIRXLUTicctLWp/TkW YmcDU7LSvjvwjsz2yWzu2dmenadsA8ckB6XI9MIprxo6u6jWLq1LUa07omKXILo7MwplDDSwXC46 CrK0E9Ep7+6LeW+87MUKQfeWVuuSza1qPeSgEn84D7oQhAIZHpEQRxQa6P6dPyFpWnJM1K76qE9i 24NzcshatiFFIPxlqVySnIHIk8sA91QdLbwnKM1NXfq5ea686jc+aVMtSsqws89rbYbIUAeWVdcdB AS7CKy2tq7d+nWuI0n1TqTNZkZ1bYpNd7BLLpS4cNF0J+KQVAoJxlKh1I6WagAAAAAAAAAAAAAA" style="width:220px;height:auto;display:block;margin:0 auto" alt="El Cuarto Sentido">
+      <div class="cot-brand-lines" style="display:flex;margin-top:1rem"><div class="cot-brand-line"></div><div style="width:2rem"></div><div class="cot-brand-line"></div></div>
+    </div>
+    <div class="cot-title-bar" id="cot-title"></div>
+    <div class="cot-meta"><div class="cot-meta-item"><span>Cliente</span><span id="m-cliente">—</span></div><div class="cot-meta-item"><span>Fecha</span><span id="m-fecha">—</span></div><div class="cot-meta-item"><span>Contrato</span><span id="m-contrato">—</span></div><div class="cot-meta-item"><span>Folio</span><span id="m-folio">—</span></div></div>
+    <table class="cot-table"><thead><tr><th style="width:44px">Cant.</th><th style="width:70px">Modelo</th><th class="l">Ubicación</th><th>Precio lista</th><th>Dto. %</th><th>Dto. $</th><th>P. Unitario</th><th>Subtotal</th><th>Total + IVA</th></tr></thead><tbody id="cot-body"></tbody></table>
+    <div class="cot-totals"><div class="cot-totals-box"><div class="t-row sub"><span class="lbl">Subtotal mensual</span><span class="amt" id="t-sub">—</span></div><div class="t-row"><span class="lbl">IVA (16%)</span><span class="amt" id="t-iva">—</span></div><div class="t-row"><span class="lbl">Total mensual + IVA</span><span class="amt" id="t-tot">—</span></div></div></div>
+    <ul class="cot-footer" id="cot-footer"></ul>
+  </div>
+</div>
+</div>
+<script>
+const LISTA={'G-AIR':3500,'XS-AIR':1500,'A3000':3500,'A300':2500,'J36':1500,'NOVA':4990,'STELLA':6990};
+const IVA=0.16;
+let state={cliente:'',visita:'TRIMESTRAL',modalidad:'SCENT AS A SERVICE',horario:'FULL SERVICE',duracion:'1',pago:'TRANSFERENCIA',equipos:[{modelo:'G-AIR',cant:1,ubicacion:'',objetivo:0}],notas:['Servicio en renta que incluye: visita trimestral, mantenimiento y aroma','En caso de cambio en las cantidades, los precios se ajustarán']};
+let _folio='ECS-'+new Date().getFullYear()+'-'+(Math.floor(Math.random()*9000)+1000);
+const mxn=n=>'$'+Math.round(n).toLocaleString('es-MX');
+const pct=n=>(n*100).toFixed(0)+'%';
+function buildTitle(){const p=[state.pago];if(state.visita!=='SIN VISITA')p.push('VISITA '+state.visita);p.push(state.modalidad);p.push(state.horario);return p.join(' — ');}
+function bindSeg(id,key){document.getElementById(id).querySelectorAll('.seg').forEach(b=>{b.addEventListener('click',()=>{document.getElementById(id).querySelectorAll('.seg').forEach(x=>x.classList.remove('active'));b.classList.add('active');state[key]=b.dataset.v;render();});});}
+bindSeg('g-visita','visita');bindSeg('g-modalidad','modalidad');bindSeg('g-horario','horario');bindSeg('g-duracion','duracion');bindSeg('g-pago','pago');
+document.getElementById('cliente').addEventListener('input',e=>{state.cliente=e.target.value;render();});
+function syncSegs(){[['g-visita','visita'],['g-modalidad','modalidad'],['g-horario','horario'],['g-duracion','duracion'],['g-pago','pago']].forEach(([id,key])=>{document.getElementById(id).querySelectorAll('.seg').forEach(b=>{b.classList.toggle('active',b.dataset.v===state[key]);});});document.getElementById('cliente').value=state.cliente;}
+function buildModelOpts(sel){return Object.keys(LISTA).map(k=>'<option value="'+k+'"'+(k===sel?' selected':'')+'>'+k+'</option>').join('');}
+function renderEquipos(){const tb=document.getElementById('eq-rows');tb.innerHTML='';state.equipos.forEach((eq,i)=>{const tr=document.createElement('tr');tr.className='eq-row';const del=state.equipos.length>1?'<button class="eq-btn" data-i="'+i+'">×</button>':'';tr.innerHTML='<td><select data-i="'+i+'" data-k="modelo">'+buildModelOpts(eq.modelo)+'</select></td><td><input type="number" value="'+eq.cant+'" min="1" max="99" data-i="'+i+'" data-k="cant" style="width:40px;text-align:center"></td><td><input type="text" value="'+eq.ubicacion.replace(/"/g,'&quot;')+'" data-i="'+i+'" data-k="ubicacion" placeholder="Ubicación" style="width:100%"></td><td><input type="number" value="'+eq.objetivo+'" min="0" step="50" data-i="'+i+'" data-k="objetivo" style="width:68px;text-align:right"></td><td>'+del+'</td>';tb.appendChild(tr);});tb.querySelectorAll('select[data-k="modelo"]').forEach(el=>{el.addEventListener('change',e=>{state.equipos[+e.target.dataset.i].modelo=e.target.value;renderEquipos();render();});});tb.querySelectorAll('input[data-k="cant"]').forEach(el=>{el.addEventListener('input',e=>{state.equipos[+e.target.dataset.i].cant=Math.max(1,+e.target.value||1);render();});});tb.querySelectorAll('input[data-k="ubicacion"]').forEach(el=>{el.addEventListener('input',e=>{state.equipos[+e.target.dataset.i].ubicacion=e.target.value;render();});});tb.querySelectorAll('input[data-k="objetivo"]').forEach(el=>{el.addEventListener('input',e=>{state.equipos[+e.target.dataset.i].objetivo=+e.target.value||0;render();});});tb.querySelectorAll('.eq-btn').forEach(el=>{el.addEventListener('click',e=>{const i=+e.currentTarget.dataset.i;if(state.equipos.length===1)return;state.equipos.splice(i,1);renderEquipos();render();});});}
+document.getElementById('btn-add-eq').addEventListener('click',()=>{state.equipos.push({modelo:'G-AIR',cant:1,ubicacion:'',objetivo:1900});renderEquipos();render();});
+function renderNotas(){const c=document.getElementById('notas-editables');c.innerHTML='';state.notas.forEach((nota,i)=>{const row=document.createElement('div');row.className='nota-row';row.innerHTML='<span class="nota-bullet">—</span><input type="text" value="'+nota.replace(/"/g,'&quot;')+'" data-i="'+i+'" placeholder="Texto de la nota..."><button class="nota-del" data-i="'+i+'">×</button>';c.appendChild(row);});c.querySelectorAll('input').forEach(el=>{el.addEventListener('input',e=>{state.notas[+e.target.dataset.i]=e.target.value;render();});});c.querySelectorAll('.nota-del').forEach(el=>{el.addEventListener('click',e=>{state.notas.splice(+e.currentTarget.dataset.i,1);renderNotas();render();});});}
+document.getElementById('btn-add-nota').addEventListener('click',()=>{state.notas.push('');renderNotas();render();});
+function render(){const fecha=new Date().toLocaleDateString('es-MX',{day:'2-digit',month:'long',year:'numeric'});document.getElementById('cot-title').textContent=buildTitle();document.getElementById('m-cliente').textContent=state.cliente||'—';document.getElementById('m-fecha').textContent=fecha;document.getElementById('m-contrato').textContent=state.duracion+(state.duracion==='1'?' año':' años');document.getElementById('m-folio').textContent=_folio;const tb=document.getElementById('cot-body');tb.innerHTML='';let sub=0,pd=0,pl=0,te=0;state.equipos.forEach(eq=>{const lista=LISTA[eq.modelo]||0,cant=eq.cant,obj=eq.objetivo,desc=Math.max(0,lista-obj),dp=lista>0?desc/lista:0,s=obj*cant,c=s*(1+IVA);sub+=s;pd+=dp*(lista*cant);pl+=lista*cant;te+=cant;const tr=document.createElement('tr');tr.innerHTML='<td>'+cant+'</td><td style="font-weight:500">'+eq.modelo+'</td><td class="l">'+(eq.ubicacion||'—')+'</td><td>'+mxn(lista)+'</td><td>'+pct(dp)+'</td><td class="red">'+(desc>0?'-'+mxn(desc):'—')+'</td><td class="bold">'+mxn(obj)+'</td><td>'+mxn(s)+'</td><td class="bold">'+mxn(c)+'</td>';tb.appendChild(tr);});const iva=sub*IVA,tot=sub+iva,dp=pl>0?pd/pl:0;document.getElementById('t-sub').textContent=mxn(sub);document.getElementById('t-iva').textContent=mxn(iva);document.getElementById('t-tot').textContent=mxn(tot);document.getElementById('s-total').textContent=mxn(tot);document.getElementById('s-sub').textContent=mxn(sub)+' sin IVA';document.getElementById('s-desc').textContent=pct(dp);document.getElementById('s-eq').textContent=te+' equipo'+(te!==1?'s':'');document.getElementById('s-dur').textContent=state.duracion+(state.duracion==='1'?' año':' años')+' de contrato';const fijas=['Servicio 24/7','El total incluye el impuesto (IVA)','El costo en esta cotización es mensual'];document.getElementById('cot-footer').innerHTML=[...fijas,...state.notas.filter(n=>n.trim())].map(n=>'<li>'+n+'</li>').join('');}
+document.getElementById('btn-pdf').addEventListener('click',()=>window.print());
+document.getElementById('btn-nueva').addEventListener('click',()=>{if(!confirm('¿Limpiar la cotización y empezar desde cero?'))return;_folio='ECS-'+new Date().getFullYear()+'-'+(Math.floor(Math.random()*9000)+1000);state={cliente:'',visita:'TRIMESTRAL',modalidad:'SCENT AS A SERVICE',horario:'FULL SERVICE',duracion:'1',pago:'TRANSFERENCIA',equipos:[{modelo:'G-AIR',cant:1,ubicacion:'',objetivo:1900}],notas:['Servicio en renta que incluye: visita trimestral, mantenimiento y aroma','En caso de cambio en las cantidades, los precios se ajustarán']};syncSegs();renderEquipos();renderNotas();render();});
+syncSegs();renderEquipos();renderNotas();render();
+</script>
+</body>
+</html>
